@@ -1,8 +1,8 @@
 // Google Drive API Configuration
 const CONFIG = {
     // Replace with your actual API credentials
-    CLIENT_ID: 'YOUR_CLIENT_ID.apps.googleusercontent.com',
-    API_KEY: 'YOUR_API_KEY',
+    CLIENT_ID: '191758771851-4eh6l7bb5ls7cep1e2gigghomu1s6223.apps.googleusercontent.com',
+    API_KEY: 'AIzaSyBIXshKUfm8iNRo-X0s9Se0S-zlnmbUrTI',
     
     // Discovery docs and scopes
     DISCOVERY_DOCS: ['https://www.googleapis.com/discovery/v1/apis/drive/v3/rest'],
