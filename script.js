@@ -264,6 +264,6 @@ function showNotification(message, type) {
 }
 
 // Initialize on load
-window.onload = function() {
+document.addEventListener("DOMContentLoaded", function() {
     handleClientLoad();
-};
+});
