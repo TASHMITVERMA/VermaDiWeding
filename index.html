@@ -1,115 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>AS Luxury Gallery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #000000, #111111);
-      color: gold;
-      text-align: center;
-    }
-
-    header {
-      padding: 40px 20px;
-      font-size: 34px;
-      letter-spacing: 3px;
-      border-bottom: 1px solid gold;
-    }
-
-    h2 {
-      margin-top: 50px;
-    }
-
-    iframe {
-      width: 90%;
-      max-width: 700px;
-      height: 500px;
-      border-radius: 20px;
-      border: 2px solid gold;
-      box-shadow: 0 0 20px rgba(212,175,55,0.6);
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-
-    .gallery img {
-      width: 100%;
-      border-radius: 15px;
-      border: 2px solid gold;
-      transition: 0.3s;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px gold;
-    }
-
-    button {
-      padding: 12px 30px;
-      background: gold;
-      border: none;
-      border-radius: 25px;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    button:hover {
-      background: #d4af37;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Gallery - Upload & View</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📸 Photo Gallery</h1>
+            <p class="subtitle">Upload and view photos securely</p>
+        </header>
 
-<header>
-  AS LUXURY PHOTO COLLECTION
-</header>
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <div class="upload-card">
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 15V3m0 0l-4 4m4-4l4 4M2 17l.621 2.485A2 2 0 004.561 21h14.878a2 2 0 001.94-1.515L22 17"></path>
+                    </svg>
+                    <h3>Drop your photos here</h3>
+                    <p>or click to browse</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple hidden>
+                    <button class="upload-btn" id="selectBtn">Select Photos</button>
+                </div>
+                <div class="upload-progress" id="uploadProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Uploading...</p>
+                </div>
+            </div>
+        </div>
 
-<h2>Upload Your Photo</h2>
+        <!-- Auth Button -->
+        <div class="auth-section">
+            <button id="authorizeButton" class="auth-btn" style="display: none;">Authorize Access</button>
+            <button id="signoutButton" class="auth-btn signout" style="display: none;">Sign Out</button>
+        </div>
 
-<iframe src="YOUR_FORM_LINK"></iframe>
+        <!-- Gallery Section -->
+        <div class="gallery-section">
+            <div class="gallery-header">
+                <h2>Photo Gallery</h2>
+                <button id="refreshGallery" class="refresh-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M1 4v6h6M23 20v-6h-6M20.49 9A9 9 0 105.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"></path>
+                    </svg>
+                    Refresh
+                </button>
+            </div>
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="loading-message">Sign in to view photos</div>
+            </div>
+        </div>
+    </div>
 
-<h2>Photo Gallery</h2>
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <span class="modal-close" id="modalClose">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
 
-<button onclick="loadGallery()">Refresh Gallery</button>
-
-<div class="gallery" id="gallery"></div>
-
-<script>
-const folderID = "1MALLfg_ONmkh37PwJSWZW5Vl6wsfCo9_";
-
-async function loadGallery() {
-  const response = await fetch(
-    `https://www.googleapis.com/drive/v3/files?q='${folderID}'+in+parents&key=YOUR_GOOGLE_API_KEY`
-  );
-
-  const data = await response.json();
-  const gallery = document.getElementById("gallery");
-  gallery.innerHTML = "";
-
-  if (!data.files) {
-    gallery.innerHTML = "Enable Google Drive API Key.";
-    return;
-  }
-
-  data.files.forEach(file => {
-    const img = document.createElement("img");
-    img.src = `https://drive.google.com/uc?id=${file.id}`;
-    gallery.appendChild(img);
-  });
-}
-
-loadGallery();
-</script>
-
+    <!-- Google API -->
+    <script async defer src="https://apis.google.com/js/api.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
