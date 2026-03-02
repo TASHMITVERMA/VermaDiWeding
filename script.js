@@ -32,9 +32,9 @@ function initClient() {
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
     }, function(error) {
-        console.error('Error initializing Google API client:', error);
-        showNotification('Failed to initialize. Please check your configuration.', 'error');
-    });
+    console.error("FULL ERROR:", JSON.stringify(error, null, 2));
+    alert(JSON.stringify(error, null, 2));
+});
 }
 
 function updateSigninStatus(isSignedIn) {
